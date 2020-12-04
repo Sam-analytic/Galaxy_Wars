@@ -1,5 +1,5 @@
 import pygame as pg
-import Objects as obj
+import ObjectsDraft as obj
 from pygame.draw import *
 from random import randint
 pg.init()
@@ -64,7 +64,6 @@ def check_bounce(i):
 
 def check_hit(ball_num):
     for i in range(0, planet_num):
-        print(i)
         l = (x[ball_num] - planet_x[i]) ** 2 + (y[ball_num] - planet_y[i]) ** 2
         if l <= planet_r[i] ** 2:
             destroy(ball_num)
@@ -105,37 +104,6 @@ def ball(i):
 def ship():
     polygon(screen, RED, ((ship_x - 40, ship_y - 30), (ship_x - 40, ship_y + 30), (ship_x + 40, ship_y + 30), (ship_x + 40, ship_y - 30)), 0)
 
-def laser():
-    dx = mouse_x - ship_x
-    dy = mouse_y - ship_y
-    k = dy / dx
-    b = ship_y - k * ship_x
-    if(dx > 0):
-        if k < 0:
-            end_y = 0
-        if k > 0:
-            end_y = 800
-        if k == 0:
-            end_x = 1200
-            end_y = ship_y
-        else:
-            end_x = (end_y - b) / k
-    if(dx < 0):
-        if k < 0:
-            end_y = 800
-        if k > 0:
-            end_y = 0
-        if k == 0:
-            end_x = 0
-            end_y = ship_y
-        else:
-            end_x = (end_y - b) / k
-    for i in range(0, planet_num):
-        l = (k * planet_x[i] - planet_y[i] + b) ** 2
-        l /= k ** 2 + 1
-        #if l < planet_r[i] ** 2:
-            #find coordinates
-    line(screen, RED, (ship_x, ship_y), (end_x, end_y), 3)
 
 def planets():
     for i in range(0, planet_num):
@@ -155,7 +123,7 @@ while not finished:
         elif event.type == pg.MOUSEBUTTONDOWN:
             mouse_x, mouse_y = event.pos
             new_ball(ship_x, ship_y, mouse_x, mouse_y)
-            laser()
+            obj.laser(ship_x, ship_y, mouse_x, mouse_y)
 
     for i in range(0, max_num):
         if exist[i] == True:
