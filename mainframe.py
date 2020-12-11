@@ -5,7 +5,7 @@ from random import randint
 
 pg.init()
 screen = pg.display.set_mode((1200,800))
-FPS = 30
+FPS = 32
 max_num = 5
 
 '''#This is an example array made for your help, quote it in ''' ''' and write your code.
@@ -22,7 +22,8 @@ ship1 = gameob.Ship1(randint(0,3),70,400,1)
 #print(ship1.barrelx)
 ship2 = gameob.Ship2(randint(0,3),ship1)
 #print(ship2.barrelx)
-gameob.Middle_cloud()
+init_cloud = gameob.Middle_cloud()
+init_cloud
 gameob.Panel(0,0,740, 300,60)
 gameob.Panel(0,900,740,300,60)
 pg.display.update()
@@ -32,19 +33,19 @@ finished = False
 #initial shooting condition = instantiation of bullets
 i = -1
 
+
 while not finished:
     i += 1
-    bullet_list = []
-    bullet_cover_list = []
+
     clock.tick(FPS)
     for event in pg.event.get():
         if event.type == pg.QUIT:
             finished = True
         elif event.type == pg.KEYDOWN:
             if event.key == pg.K_w:
-                ship1.y += 10
-            if event.key == pg.K_s:
                 ship1.y -= 10
+            if event.key == pg.K_s:
+                ship1.y += 10
         elif event.type == pg.MOUSEBUTTONDOWN:
             mouse_x, mouse_y = event.pos
             ship1.x = 100

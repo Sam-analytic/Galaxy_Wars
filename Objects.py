@@ -28,11 +28,19 @@ ay = [0] *5
 v_o = 15
 color = [0] * 5
 exist = [False] * max_num
-planet_num = 2
-g = 0.0025
-planet_x = [600, 800]
-planet_y = [400, 200]
-planet_r = [50, 50]
+planet_num = randint(8,10)
+g = 0.01
+planet_x = []
+planet_y = []
+planet_r = []
+planet_col = []
+
+for i in range (planet_num):
+    planet_x.append(randint(400,800))
+    planet_y.append(randint(0,800))
+    planet_r.append(randint(12,20))
+    planet_col.append(randint(0,4))
+
 
 def new_ball(ship_x, ship_y, mouse_x, mouse_y):
     '''рисует новый шарик '''
@@ -112,8 +120,8 @@ class Middle_cloud(Space_object):
         print('Draws a cloud of random black holes over the screen. #Uses Space_objects.')
 
     def __init__(self):
-        for i in range(0, 2):
-            Space_object(1, planet_x[i], planet_y[i], planet_r[i])
+        for i in range(planet_num):
+            Space_object(planet_col[i], planet_x[i], planet_y[i], planet_r[i])
 
 
 class Ship1(Space_object):
