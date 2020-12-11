@@ -42,14 +42,23 @@ while not finished:
             finished = True
         elif event.type == pg.MOUSEBUTTONDOWN:
             mouse_x, mouse_y = event.pos
+            ship1.x = 100
             gameob.new_ball(ship1.x, ship1.y, mouse_x, mouse_y)
 
             #bullet_list
             #pg.display.update()
+    ship1 = gameob.Ship1(randint(0, 3), 70, 400, 1)
+    # print(ship1.barrelx)
+    ship2 = gameob.Ship2(randint(0, 3), ship1)
+    # print(ship2.barrelx)
+    gameob.Middle_cloud()
+    gameob.Panel(0, 0, 740, 300, 60)
+    gameob.Panel(0, 900, 740, 300, 60)
     for i in range(0, max_num):
         if gameob.exist[i] == True:
             gameob.ball(i)
     pg.display.update()
+    screen.fill(gameob.COLOR[5])
     '''for bullet in bullet_list:
         bullet
     pg.display.update()

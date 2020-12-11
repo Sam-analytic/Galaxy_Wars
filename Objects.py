@@ -16,8 +16,6 @@ BLACK = (0,0,0)
 COLOR = [RED,GREEN,YELLOW,BLUE, WHITE,BLACK]
 
 #numerical execution variable values
-ship_x = 150
-ship_y = 400
 max_num = 5
 n = 0
 x = [0] * 5
@@ -89,7 +87,7 @@ def ball(i):
     vy[i] += ay[i]
     x[i] += vx[i]
     y[i] += vy[i]
-    if(x[i] <= 0 or x[i]>=1120 or y[i] <= 0 or y[i] >= 720):
+    if(x[i] <= 0 or x[i]>=1190 or y[i] <= 0 or y[i] >= 890):
         destroy(i)
         return
     else:
