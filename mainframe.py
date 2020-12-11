@@ -40,6 +40,11 @@ while not finished:
     for event in pg.event.get():
         if event.type == pg.QUIT:
             finished = True
+        elif event.type == pg.KEYDOWN:
+            if event.key == pg.K_w:
+                ship1.y += 10
+            if event.key == pg.K_s:
+                ship1.y -= 10
         elif event.type == pg.MOUSEBUTTONDOWN:
             mouse_x, mouse_y = event.pos
             ship1.x = 100
@@ -47,9 +52,9 @@ while not finished:
 
             #bullet_list
             #pg.display.update()
-    ship1 = gameob.Ship1(2, 70, 400, 1)
+    ship1.draw()
     # print(ship1.barrelx)
-    ship2 = gameob.Ship2(3, ship1)
+    ship2.draw()
     # print(ship2.barrelx)
     gameob.Middle_cloud()
     gameob.Panel(0, 0, 740, 300, 60)

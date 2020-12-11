@@ -124,7 +124,6 @@ class Ship1(Space_object):
         self.x = x
         self.y = y
         self.i = i
-        polygon(screen, COLOR[index], [(self.x + ((-1)**i)*20, self.y), (self.x +((-1)**i)*30, self.y +20), (self.x +((-1)**(i+1))*30, self.y),(self.x +((-1)**i)*30,self.y - 20)], 3)
         self.barrelx = self.x +((-1)**(i+1))*30
         self.barrely = self.y
 
@@ -135,6 +134,11 @@ class Ship1(Space_object):
         shoot_y = self.barrely
         Space_object(4, shoot_x, shoot_y,5)
 
+    def draw(self):
+        i = self.i
+        polygon(screen, COLOR[1], [(self.x + ((-1) ** i) * 20, self.y), (self.x + ((-1) ** i) * 30, self.y + 20),
+                                   (self.x + ((-1) ** (i + 1)) * 30, self.y), (self.x + ((-1) ** i) * 30, self.y - 20)],
+            3)
 
 
 class Ship2(Ship1):
@@ -143,13 +147,17 @@ class Ship2(Ship1):
         X = 1200 - ship1.x
         Y = ship1.y
         I = ship1.i
+        self.x = X
+        self.y = Y
         Ship1(index,X,Y,I+1)
-        '''polygon(screen, COLOR[index],
-                [(X + 20, self.y), (X + 30, self.y + 20), (X - 30, self.y), (X + 30, self.y - 20)],
-                3)'''
         self.barrelx = X - 30
         self.barrely = Y
-
+    def draw(self):
+        X = self.x
+        Y = self.y
+        polygon(screen, COLOR[2],
+                [(X + 20, self.y), (X + 30, self.y + 20), (X - 30, self.y), (X + 30, self.y - 20)],
+                3)
     def shoot(self, i, colorcode):
         assert colorcode == 4 or colorcode == 5
         #assert False, "colorcode can only be 4 or 5 which corresponds to WHITE or BLACK in the colors list."
