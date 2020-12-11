@@ -47,9 +47,9 @@ while not finished:
 
             #bullet_list
             #pg.display.update()
-    ship1 = gameob.Ship1(randint(0, 3), 70, 400, 1)
+    ship1 = gameob.Ship1(2, 70, 400, 1)
     # print(ship1.barrelx)
-    ship2 = gameob.Ship2(randint(0, 3), ship1)
+    ship2 = gameob.Ship2(3, ship1)
     # print(ship2.barrelx)
     gameob.Middle_cloud()
     gameob.Panel(0, 0, 740, 300, 60)

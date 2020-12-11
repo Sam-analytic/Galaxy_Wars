@@ -82,6 +82,7 @@ def grav(num):
     return ax, ay
 
 def ball(i):
+    check_hit(i)
     ax[i], ay[i] = grav(i)
     vx[i] += ax[i]
     vy[i] += ay[i]
@@ -111,11 +112,8 @@ class Middle_cloud(Space_object):
         print('Draws a cloud of random black holes over the screen. #Uses Space_objects.')
 
     def __init__(self):
-        for i in range (randint(7,12)):
-            #index  = randint(0,3)
-            #x = 600 + randint(-200,200)
-            #y = 400 + randint(-200, 200)
-            Space_object(randint(0,3),600 + randint(-150,150),400 + randint(-350, 350),10 )
+        for i in range(0, 2):
+            Space_object(1, planet_x[i], planet_y[i], planet_r[i])
 
 
 class Ship1(Space_object):
