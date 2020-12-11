@@ -5,7 +5,8 @@ from random import randint
 
 pg.init()
 screen = pg.display.set_mode((1200,800))
-FPS = 10
+FPS = 30
+max_num = 5
 
 '''#This is an example array made for your help, quote it in ''' ''' and write your code.
 sun = gameob.Space_object(2,100,100,40)
@@ -40,11 +41,14 @@ while not finished:
         if event.type == pg.QUIT:
             finished = True
         elif event.type == pg.MOUSEBUTTONDOWN:
-            bullet_list.append(ship1.shoot(i,4))
-            bullet_cover_list.append(ship1.shoot(i,5))
+            mouse_x, mouse_y = event.pos
+            gameob.new_ball(ship1.x, ship1.y, mouse_x, mouse_y)
+
             #bullet_list
             #pg.display.update()
-    bullet_list
+    for i in range(0, max_num):
+        if gameob.exist[i] == True:
+            gameob.ball(i)
     pg.display.update()
     '''for bullet in bullet_list:
         bullet

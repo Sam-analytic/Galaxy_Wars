@@ -1,8 +1,6 @@
 import pygame
 from pygame.draw import *
 from random import randint
-import gameplay_objects
-import ingameconstants
 
 pygame.init()
 
@@ -48,9 +46,9 @@ def new_ball(ship_x, ship_y, mouse_x, mouse_y):
             i = k
             exist[k] = True
             break
-    #x[i] = ship_x
-    #y[i] = ship_y
-    #r[i] = 10
+    x[i] = ship_x
+    y[i] = ship_y
+    r[i] = 10
     dx = mouse_x - ship_x
     dy = mouse_y - ship_y
     c_sq = dx ** 2 + dy ** 2
@@ -144,6 +142,7 @@ finished = False
 
 score = 0
 
+
 while not finished:
 
     clock.tick(FPS)
@@ -152,8 +151,6 @@ while not finished:
             finished = True
         elif event.type == pygame.MOUSEBUTTONDOWN:
             mouse_x, mouse_y = event.pos
-            dx = mouse_x - ship_x
-            dy = mouse_y - ship_y
             new_ball(ship_x, ship_y, mouse_x, mouse_y)
             laser()
 
@@ -161,6 +158,7 @@ while not finished:
         if exist[i] == True:
             ball(i)
             check_hit(i)
+
     ship()
     planets()
     pygame.display.update()

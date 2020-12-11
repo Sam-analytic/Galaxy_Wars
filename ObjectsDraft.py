@@ -5,11 +5,14 @@ pg.init()
 screen = pg.display.set_mode((1200,800))
 #FPS = pass
 
-BLUE = (0,230,0)
-RED = (230,0,0)
-GREEN = (0,0,230)
-YELLOW = (240,0,240)
-COLOR = [RED,GREEN,YELLOW,BLUE]
+RED = (255, 0, 0)
+BLUE = (0, 0, 255)
+YELLOW = (255, 255, 0)
+GREEN = (0, 255, 0)
+MAGENTA = (255, 0, 255)
+CYAN = (0, 255, 255)
+BLACK = (0, 0, 0)
+COLOR = [RED, BLUE, YELLOW, GREEN, MAGENTA, CYAN]
 
 ship_x = 150
 ship_y = 400
@@ -62,16 +65,21 @@ class Ship():
     '''
     This class creates ship object.
     '''
-    def __init__(self,x,y,index):
+
+    class Ship():
+        '''
+        This class creates ship object.
+        '''
+
+    def __init__(self, x, y, index):
         self.x = x
         self.y = y
-        polygon(screen, COLOR[index], [(self.x - 20, self.y), (self.x - 30, self.y +20), (self.x + 30, self.y),(self.x - 30,self.y - 20)], 3)
+        self.index = index
 
-    def pair(self,index):
-        X = 1200 - self.x
-        polygon(screen, COLOR[index],
-                [(X + 20, self.y), (X + 30, self.y + 20), (X - 30, self.y), (X + 30, self.y - 20)],
-                3)
+    def draw(self):
+        polygon(screen, COLOR[self.index], [(self.x - 20, self.y), (self.x - 30, self.y + 20), (self.x + 30, self.y),
+                                           (self.x - 30, self.y - 20)], 3)
+
 
 def laser(x1, y1, x2, y2):
     dx = x2 - x1
@@ -139,9 +147,6 @@ def laser(x1, y1, x2, y2):
 
 
 
-sun = Space_object(100,100,40,2)
-spaceship = Ship(400,400,3)
-spaceship.pair(2)
 ball = Ball(600,600,20, 1)
 
 pg.display.update()

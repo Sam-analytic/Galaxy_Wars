@@ -129,7 +129,7 @@ while not finished:
         if exist[i] == True:
             ball(i)
             check_hit(i)
-    ship()
+    obj.spaceship1.draw()
     planets()
     pg.display.update()
     screen.fill(BLACK)
