@@ -1,12 +1,15 @@
-import pygame as pg
-import Objects as obj
+import pygame
 from pygame.draw import *
 from random import randint
-pg.init()
+import gameplay_objects
+import ingameconstants
+
+pygame.init()
 
 FPS = 60
-screen = pg.display.set_mode((1200, 800))
+screen = pygame.display.set_mode((1200, 800))
 
+# SECTION WITH COLORS 
 RED = (255, 0, 0)
 BLUE = (0, 0, 255)
 YELLOW = (255, 255, 0)
@@ -16,6 +19,7 @@ CYAN = (0, 255, 255)
 BLACK = (0, 0, 0)
 COLORS = [RED, BLUE, YELLOW, GREEN, MAGENTA, CYAN]
 
+#numerical execution variable values
 ship_x = 150
 ship_y = 400
 max_num = 5
@@ -29,7 +33,7 @@ ax = [0] * 5
 ay = [0] *5
 v_o = 15
 color = [0] * 5
-exist = [False] * 5
+exist = [False] * max_num
 planet_num = 2
 g = 0.0025
 planet_x = [600, 800]
@@ -44,23 +48,17 @@ def new_ball(ship_x, ship_y, mouse_x, mouse_y):
             i = k
             exist[k] = True
             break
-    x[i] = ship_x
-    y[i] = ship_y
-    r[i] = 10
+    #x[i] = ship_x
+    #y[i] = ship_y
+    #r[i] = 10
     dx = mouse_x - ship_x
     dy = mouse_y - ship_y
-    c = dx ** 2 + dy ** 2
-    c = c ** 0.5
+    c_sq = dx ** 2 + dy ** 2
+    c = c_sq ** 0.5
     vx[i] = int(v_o * dx / c)
     vy[i] = int(v_o * dy / c)
     color[i] = COLORS[randint(0, 5)]
-    circle(screen, color[i], (x[i],y[i]), r[i])
-
-def check_bounce(i):
-    if x[i] <= r[i] or x[i] >= 1200 - r[i]:
-        vx[i] *= -1
-    if y[i] <= r[i] or y[i] >= 800 - r[i]:
-        vy[i] *= -1
+    circle(screen, color[i], (ship_x,ship_y), 10)
 
 def check_hit(ball_num):
     for i in range(0, planet_num):
@@ -100,7 +98,6 @@ def ball(i):
         return
     else:
         circle(screen, color[i], (x[i], y[i]), r[i])
-   # check_bounce(i)
 
 def ship():
     polygon(screen, RED, ((ship_x - 40, ship_y - 30), (ship_x - 40, ship_y + 30), (ship_x + 40, ship_y + 30), (ship_x + 40, ship_y - 30)), 0)
@@ -141,19 +138,22 @@ def planets():
     for i in range(0, planet_num):
         circle(screen, BLUE, (planet_x[i], planet_y[i]), planet_r[i])
 
-pg.display.update()
-clock = pg.time.Clock()
+pygame.display.update()
+clock = pygame.time.Clock()
 finished = False
 
 score = 0
 
 while not finished:
+
     clock.tick(FPS)
-    for event in pg.event.get():
-        if event.type == pg.QUIT:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
             finished = True
-        elif event.type == pg.MOUSEBUTTONDOWN:
+        elif event.type == pygame.MOUSEBUTTONDOWN:
             mouse_x, mouse_y = event.pos
+            dx = mouse_x - ship_x
+            dy = mouse_y - ship_y
             new_ball(ship_x, ship_y, mouse_x, mouse_y)
             laser()
 
@@ -163,6 +163,6 @@ while not finished:
             check_hit(i)
     ship()
     planets()
-    pg.display.update()
+    pygame.display.update()
     screen.fill(BLACK)
-pg.quit()
+pygame.quit()
