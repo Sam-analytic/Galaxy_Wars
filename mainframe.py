@@ -6,17 +6,8 @@ from random import randint
 pg.init()
 screen = pg.display.set_mode((1200,800))
 FPS = 32
+gametime = 30
 max_num = 5
-
-'''#This is an example array made for your help, quote it in ''' ''' and write your code.
-sun = gameob.Space_object(2,100,100,40)
-spaceship = gameob.Ship(3,400,400)
-ship2 = gameob.Ship.pair(spaceship,2)
-ship2
-ball = gameob.Ball(1,600,600,20)
-
-gameob.Panel(2,200,200,300,100)
-'''
 
 ship1 = gameob.Ship1(randint(0,3),70,400,1)
 #print(ship1.barrelx)
@@ -32,10 +23,20 @@ finished = False
 
 #initial shooting condition = instantiation of bullets
 i = -1
+start_ticks=pg.time.get_ticks() #starter tick
+
 
 
 while not finished:
+    #TIMER
+    seconds = (pg.time.get_ticks() - start_ticks) / 1000  # calculate how many seconds
+    if seconds > gametime:  # if more than 10 seconds close the game
+        break
+
     i += 1
+    count_ship_1 = 0
+    count_ship_2 = 0
+    balls_list = []
 
     clock.tick(FPS)
     for event in pg.event.get():
@@ -48,8 +49,9 @@ while not finished:
                 ship1.y += 10
         elif event.type == pg.MOUSEBUTTONDOWN:
             mouse_x, mouse_y = event.pos
-            ship1.x = 100
-            gameob.new_ball(ship1.x, ship1.y, mouse_x, mouse_y)
+            gameob.new_ball(ship1.x + 5, ship1.y, mouse_x, mouse_y)
+            #bals_list.append([])
+            """gameob.new_ball(ship2.x - 5, ship2.y, mouse_x,mouse_y)"""
 
             #bullet_list
             #pg.display.update()
