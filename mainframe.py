@@ -59,12 +59,15 @@ while not finished:
     # print(ship1.barrelx)
     ship2.draw()
     # print(ship2.barrelx)
+    font = pg.font.Font(None, 25)
+    text = font.render(str(gameob.score), True, gameob.WHITE)
+    screen.blit(text, [250, 250])
     gameob.Middle_cloud()
     gameob.Panel(0, 0, 740, 300, 60)
     gameob.Panel(0, 900, 740, 300, 60)
     for i in range(0, max_num):
         if gameob.exist[i] == True:
-            gameob.ball(i)
+            gameob.ball(i, ship2)
     pg.display.update()
     screen.fill(gameob.COLOR[5])
     '''for bullet in bullet_list:

@@ -29,7 +29,8 @@ v_o = 15
 color = [0] * 5
 exist = [False] * max_num
 planet_num = randint(8,10)
-g = 0.01
+g = 0.1
+score = 0
 planet_x = []
 planet_y = []
 planet_r = []
@@ -62,7 +63,27 @@ def new_ball(ship_x, ship_y, mouse_x, mouse_y):
     color[i] = COLOR[randint(0, 4)]
     circle(screen, color[i], (ship_x,ship_y), 10)
 
-def check_hit(ball_num):
+def mult(x0, y0, x1, y1, x2, y2):
+    x1 = x1 - x0
+    x2 = x2 - x0
+    y1 = y1 - y0
+    y2 = y2 - y0
+    return x1 * y2 - y1 * x2
+
+def check_hit(ball_num, ship2):
+    global score
+    x1 = ship2.x - 30
+    y1 = ship2.y
+    x2 = ship2.x + 30
+    y2 = ship2.y + 20
+    x3 = ship2.x + 30
+    y3 = ship2.y - 20
+    a = mult(x1, y1, x2, y2, x[ball_num], y[ball_num])
+    b = mult(x3, y3, x1, y1, x[ball_num], y[ball_num])
+    c = mult(x2, y2, x3, y3, x[ball_num], y[ball_num])
+    if a * b * c == 0 or a > 0 and b > 0 and c > 0 or a < 0 and b < 0 and c < 0:
+        score+=1
+        destroy(ball_num)
     for i in range(0, planet_num):
         print(i)
         l = (x[ball_num] - planet_x[i]) ** 2 + (y[ball_num] - planet_y[i]) ** 2
@@ -83,14 +104,14 @@ def grav(num):
         dx = x[num] - planet_x[i]
         dy = y[num] - planet_y[i]
         l = dx ** 2 + dy ** 2
-        ax += g * planet_r[i] ** 3 / l * dx
-        ay += g * planet_r[i] ** 3 / l * dy
+        ax += g * planet_r[i] ** 2.4 / l * dx
+        ay += g * planet_r[i] ** 2.4 / l * dy
     ax = -int(ax)
     ay = -int(ay)
     return ax, ay
 
-def ball(i):
-    check_hit(i)
+def ball(i, ship2):
+    check_hit(i, ship2)
     ax[i], ay[i] = grav(i)
     vx[i] += ax[i]
     vy[i] += ay[i]
