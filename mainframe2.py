@@ -35,7 +35,7 @@ start_ticks=pg.time.get_ticks() #starter tick
 while not finished:
     #TIMER
     seconds = (pg.time.get_ticks() - start_ticks) / 1000  # calculate how many seconds
-    if seconds > gametime:  # if more than 10 seconds close the game
+    if seconds > gametime:  # if more than gametime seconds close the game
         break
 
     i += 1

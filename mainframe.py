@@ -6,7 +6,7 @@ from random import randint
 pg.init()
 screen = pg.display.set_mode((1200,800))
 FPS = 32
-gametime = 30
+gametime = 10
 max_num = 5
 
 ship1 = gameob.Ship1(randint(0,3),70,400,1)
@@ -61,7 +61,7 @@ while not finished:
     # print(ship2.barrelx)
     font = pg.font.Font(None, 25)
     text = font.render(str(gameob.score), True, gameob.WHITE)
-    screen.blit(text, [250, 250])
+    screen.blit(text, [30, 760])
     gameob.Middle_cloud()
     gameob.Panel(0, 0, 740, 300, 60)
     gameob.Panel(0, 900, 740, 300, 60)
@@ -78,5 +78,5 @@ while not finished:
         bullet.i = i + 1
     pg.display.update()'''
 
-
+print("Player 1 Score is: ", gameob.score)
 pg.quit()

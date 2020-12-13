@@ -85,7 +85,7 @@ def check_hit(ball_num, ship2):
         score+=1
         destroy(ball_num)
     for i in range(0, planet_num):
-        print(i)
+
         l = (x[ball_num] - planet_x[i]) ** 2 + (y[ball_num] - planet_y[i]) ** 2
         if l <= planet_r[i] ** 2:
             destroy(ball_num)
