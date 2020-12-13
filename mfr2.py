@@ -8,11 +8,11 @@ import struct
 pg.init()
 screen = pg.display.set_mode((1200,800))
 FPS = 32
-gametime = 30
+gametime = 200
 max_num = 5
 
 sock = sock.socket()
-sock.connect (('127.0.0.1', 139))
+sock.connect (('127.0.0.1', 3333))
 
 ship1 = gameob.Ship1(randint(0,3),70,400,1)
 #print(ship1.barrelx)
@@ -76,7 +76,7 @@ while not finished:
     gameob.Panel(0, 900, 740, 300, 60)
     for i in range(0, max_num):
         if gameob.exist[i] == True:
-            gameob.ball(i)
+            gameob.ball(i, ship1)
     pg.display.update()
     screen.fill(gameob.COLOR[5])
 
