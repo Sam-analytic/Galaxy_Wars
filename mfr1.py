@@ -12,7 +12,7 @@ gametime = 200
 max_num = 5
 
 sock = sock.socket()
-sock.bind(('0.0.0.0', 139))
+sock.bind(('127.0.0.1', 8000))
 sock.listen(1)
 conn, addr = sock.accept()
 print(123)
@@ -47,9 +47,9 @@ while not finished:
     balls_list = []
     font = pg.font.Font(None, 25)
     text1 = font.render(str(ship1.score), True, gameob.WHITE)
-    screen.blit(text1, [100, 100])
+    screen.blit(text2, [100, 100])
     text2 = font.render(str(ship2.score), True, gameob.WHITE)
-    screen.blit(text2, [1100, 100])
+    screen.blit(text1, [1100, 100])
 
     clock.tick(FPS)
     bts = struct.pack('i', ship1.y)
@@ -69,7 +69,7 @@ while not finished:
             gameob.new_ball(ship1.x + 5, ship1.y, mouse1_x, mouse1_y)
 
     bts = conn.recv(1024)
-    ship2.y = struct.unpack('i', bts)
+    ship2.y = struct.unpack('i', bts)[0]
     ship1.draw()
     ship2.draw()
     gameob.Middle_cloud()

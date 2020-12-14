@@ -12,7 +12,7 @@ gametime = 200
 max_num = 5
 
 sock = sock.socket()
-sock.connect (('127.0.0.1', 139))
+sock.connect (('127.0.0.1', 8000))
 ship1 = gameob.Ship1(randint(0,3),70,400,1)
 #print(ship1.barrelx)
 ship2 = gameob.Ship2(randint(0,3),ship1)
@@ -39,7 +39,7 @@ while not finished:
 
     bts = sock.recv(1024)
     print(len(bts))
-    ship1.y = struct.unpack('<i', bts)
+    ship1.y = struct.unpack('<i', bts)[0]
     i += 1
     count_ship_1 = 0
     count_ship_2 = 0
@@ -70,7 +70,6 @@ while not finished:
             #bullet_list
             #pg.display.update()
     bts = struct.pack('i', ship2.y)
-    print (bts)
     sock.send(bts)
     ship1.draw()
     # print(ship1.barrelx)

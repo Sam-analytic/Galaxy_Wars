@@ -176,6 +176,7 @@ class Ship2(Ship1):
         I = ship1.i
         self.x = X
         self.y = Y
+        self.score = 0
         Ship1(index,X,Y,I+1)
         self.barrelx = X - 30
         self.barrely = Y
