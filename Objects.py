@@ -28,8 +28,9 @@ ay = [0] *5
 v_o = 15
 color = [0] * 5
 exist = [False] * max_num
-planet_num = randint(8,10)
+planet_num = 5
 g = 0.1
+r = 10
 score = 0
 planet_x = []
 planet_y = []
@@ -37,10 +38,9 @@ planet_r = []
 planet_col = []
 
 for i in range (planet_num):
-    planet_x.append(randint(400,800))
-    planet_y.append(randint(0,800))
-    planet_r.append(randint(12,20))
-    planet_col.append(randint(0,4))
+    planet_x = [400, 500, 450, 500, 350]
+    planet_y = [350, 450, 240, 340, 210]
+    planet_r = [10] * 5
 
 
 def new_ball(ship_x, ship_y, mouse_x, mouse_y):
@@ -53,15 +53,13 @@ def new_ball(ship_x, ship_y, mouse_x, mouse_y):
             break
     x[i] = ship_x
     y[i] = ship_y
-    r[i] = 10
     dx = mouse_x - ship_x
     dy = mouse_y - ship_y
     c_sq = dx ** 2 + dy ** 2
     c = c_sq ** 0.5
     vx[i] = int(v_o * dx / c)
     vy[i] = int(v_o * dy / c)
-    color[i] = COLOR[randint(0, 4)]
-    circle(screen, color[i], (ship_x,ship_y), 10)
+    circle(screen, COLOR[randint(0, 4)], (ship_x,ship_y), 10)
 
 def mult(x0, y0, x1, y1, x2, y2):
     x1 = x1 - x0
@@ -70,19 +68,18 @@ def mult(x0, y0, x1, y1, x2, y2):
     y2 = y2 - y0
     return x1 * y2 - y1 * x2
 
-def check_hit(ball_num, ship2):
-    global score
-    x1 = ship2.x - 30
-    y1 = ship2.y
-    x2 = ship2.x + 30
-    y2 = ship2.y + 20
-    x3 = ship2.x + 30
-    y3 = ship2.y - 20
+def check_hit(ball_num, ship):
+    x1 = ship.x - 30
+    y1 = ship.y
+    x2 = ship.x + 30
+    y2 = ship.y + 20
+    x3 = ship.x + 30
+    y3 = ship.y - 20
     a = mult(x1, y1, x2, y2, x[ball_num], y[ball_num])
     b = mult(x3, y3, x1, y1, x[ball_num], y[ball_num])
     c = mult(x2, y2, x3, y3, x[ball_num], y[ball_num])
     if a * b * c == 0 or a > 0 and b > 0 and c > 0 or a < 0 and b < 0 and c < 0:
-        score+=1
+        ship.score+=1
         destroy(ball_num)
     for i in range(0, planet_num):
 
@@ -121,17 +118,17 @@ def ball(i, ship2):
         destroy(i)
         return
     else:
-        circle(screen, color[i], (x[i], y[i]), r[i])
+        circle(screen, COLOR[2], (x[i], y[i]), r)
 
 class Space_object():
      '''
      Class makes and gives methods to spherical space objects.
      '''
-     def __init__(self,index,x,y,r):
+     def __init__(self,x,y,r):
          self.x = x
          self.y = y
          self.r = r
-         circle(screen, COLOR[index], (self.x,self.y), self.r)
+         circle(screen, COLOR[randint(0, 4)], (self.x,self.y), self.r)
 
 class Middle_cloud(Space_object):
     '''
@@ -142,7 +139,7 @@ class Middle_cloud(Space_object):
 
     def __init__(self):
         for i in range(planet_num):
-            Space_object(planet_col[i], planet_x[i], planet_y[i], planet_r[i])
+            Space_object(planet_x[i], planet_y[i], planet_r[i])
 
 
 class Ship1(Space_object):
@@ -151,6 +148,7 @@ class Ship1(Space_object):
     '''
     def __init__(self,index,x,y,i):
         self.x = x
+        self.score = 0
         self.y = y
         self.i = i
         self.barrelx = self.x +((-1)**(i+1))*30

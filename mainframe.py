@@ -61,7 +61,7 @@ while not finished:
     # print(ship2.barrelx)
     font = pg.font.Font(None, 25)
     text = font.render(str(gameob.score), True, gameob.WHITE)
-    screen.blit(text, [30, 760])
+    screen.blit(text, [250, 400])
     gameob.Middle_cloud()
     gameob.Panel(0, 0, 740, 300, 60)
     gameob.Panel(0, 900, 740, 300, 60)

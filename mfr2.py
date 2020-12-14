@@ -12,8 +12,7 @@ gametime = 200
 max_num = 5
 
 sock = sock.socket()
-sock.connect (('127.0.0.1', 3333))
-
+sock.connect (('127.0.0.1', 139))
 ship1 = gameob.Ship1(randint(0,3),70,400,1)
 #print(ship1.barrelx)
 ship2 = gameob.Ship2(randint(0,3),ship1)
@@ -39,12 +38,18 @@ while not finished:
         break
 
     bts = sock.recv(1024)
-    ship1.y = struct.unpack("i", bts)[0]
+    print(len(bts))
+    ship1.y = struct.unpack('<i', bts)
     i += 1
     count_ship_1 = 0
     count_ship_2 = 0
     balls_list = []
 
+    font = pg.font.Font(None, 25)
+    text1 = font.render(str(ship1.score), True, gameob.WHITE)
+    screen.blit(text1, [100, 100])
+    text2 = font.render(str(ship2.score), True, gameob.WHITE)
+    screen.blit(text2, [1100, 100])
     clock.tick(FPS)
 
     for event in pg.event.get():
