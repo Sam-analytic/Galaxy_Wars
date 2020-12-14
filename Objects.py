@@ -18,16 +18,16 @@ COLOR = [RED,GREEN,YELLOW,BLUE, WHITE,BLACK]
 #numerical execution variable values
 max_num = 5
 n = 0
-x = [0] * 5
-y = [0] * 5
-r = [0] * 5
-vx = [0] * 5
-vy = [0] * 5
-ax = [0] * 5
-ay = [0] *5
+x = [0] * 10
+y = [0] * 10
+r = [0] * 10
+vx = [0] * 10
+vy = [0] * 10
+ax = [0] * 10
+ay = [0] * 10
 v_o = 15
-color = [0] * 5
-exist = [False] * max_num
+color = [0] * 10
+exist = [False] * 10
 planet_num = 5
 g = 0.1
 r = 10
@@ -36,6 +36,11 @@ planet_x = []
 planet_y = []
 planet_r = []
 planet_col = []
+
+
+for i in range(max_num, max_num * 2):
+    exist[i] = True
+
 
 for i in range (planet_num):
     planet_x = [400, 500, 450, 500, 350]
@@ -46,7 +51,7 @@ for i in range (planet_num):
 def new_ball(ship_x, ship_y, mouse_x, mouse_y):
     '''рисует новый шарик '''
     i = 0
-    for k in range (0, max_num):
+    for k in range (0, max_num * 2):
         if exist[k] == False:
             i = k
             exist[k] = True
@@ -108,6 +113,7 @@ def grav(num):
     return ax, ay
 
 def ball(i, ship2):
+    print(i)
     check_hit(i, ship2)
     ax[i], ay[i] = grav(i)
     vx[i] += ax[i]

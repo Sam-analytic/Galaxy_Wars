@@ -38,9 +38,15 @@ while not finished:
         break
 
     bts = sock.recv(1024)
-    print(len(bts))
-    ship1.y = struct.unpack('<i', bts)[0]
+    Sx = [0] * 10
+    ship1.y, *Sx, ship1.score = struct.unpack('i 15i i', bts)
+    #print(Sx)
     i += 1
+    for i in range(max_num, max_num * 2 - 1):
+        gameob.x[i] = Sx[i - max_num]
+        gameob.y[i] = Sx[i]
+        gameob.exist[i] = Sx[i + max_num]
+    #print(gameob.x, gameob.y)
     count_ship_1 = 0
     count_ship_2 = 0
     balls_list = []
@@ -78,7 +84,7 @@ while not finished:
     gameob.Middle_cloud()
     gameob.Panel(0, 0, 740, 300, 60)
     gameob.Panel(0, 900, 740, 300, 60)
-    for i in range(0, max_num):
+    for i in range(0, max_num * 2):
         if gameob.exist[i] == True:
             gameob.ball(i, ship1)
     pg.display.update()

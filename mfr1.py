@@ -47,12 +47,17 @@ while not finished:
     balls_list = []
     font = pg.font.Font(None, 25)
     text1 = font.render(str(ship1.score), True, gameob.WHITE)
-    screen.blit(text2, [100, 100])
     text2 = font.render(str(ship2.score), True, gameob.WHITE)
+    screen.blit(text2, [100, 100])
     screen.blit(text1, [1100, 100])
 
     clock.tick(FPS)
-    bts = struct.pack('i', ship1.y)
+    Sx = [0] * 15
+    for i in range(0, max_num):
+        Sx[i] = gameob.x[i]
+        Sx[i + max_num] = gameob.y[i]
+        Sx[i + max_num * 2] = gameob.exist[i]
+    bts = struct.pack('i 15i i', ship1.y, *Sx, ship1.score)
     print(len(bts))
     conn.send(bts)
     for event in pg.event.get():
