@@ -1,15 +1,16 @@
 import pygame as pg
 from pygame.draw import *
 import Objects as gameob
+from Objects import screen            #imports pygame screen from Objects module
 from random import randint
+import constants as const
 import socket as sock
 import struct 
 
 pg.init()
-screen = pg.display.set_mode((1200,800))
-FPS = 32
-gametime = 200
-max_num = 5
+FPS = const.fps
+gametime = const.gametime                     #maximum number of balls shot by one ship at any moment on the screen
+max_num = const.max_num
 
 sock = sock.socket()
 sock.connect (('127.0.0.1', 8000))
@@ -53,9 +54,9 @@ while not finished:
 
     font = pg.font.Font(None, 25)
     text1 = font.render(str(ship1.score), True, gameob.WHITE)
-    screen.blit(text1, [100, 100])
     text2 = font.render(str(ship2.score), True, gameob.WHITE)
-    screen.blit(text2, [1100, 100])
+    screen.blit(text2, [60, const.screen_y - 40])
+    screen.blit(text1, [const.screen_x - 60, const.screen_y - 40])
     clock.tick(FPS)
 
     for event in pg.event.get():
@@ -82,8 +83,9 @@ while not finished:
     ship2.draw()
     # print(ship2.barrelx)
     gameob.Middle_cloud()
-    gameob.Panel(0, 0, 740, 300, 60)
-    gameob.Panel(0, 900, 740, 300, 60)
+    gameob.Panel(0, 0, const.screen_y - 60, 300, 60)
+    gameob.Panel(0, const.screen_x - 300, const.screen_y - 60, 300, 60)
+
     for i in range(0, max_num * 2):
         if gameob.exist[i] == True:
             gameob.ball(i, ship1)

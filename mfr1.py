@@ -2,20 +2,21 @@ import pygame as pg
 from pygame.draw import *
 import Objects as gameob
 from random import randint
-import socket as sock
-import struct 
+from Objects import screen     #imports pygame screen from Objects module
+import constants as const
+#import socket as sock
+#import struct
 
 pg.init()
-screen = pg.display.set_mode((1200,800))
-FPS = 32
-gametime = 200
+FPS = const.fps
+gametime = const.gametime
 max_num = 5
 
-sock = sock.socket()
-sock.bind(('127.0.0.1', 8000))
-sock.listen(1)
-conn, addr = sock.accept()
-print(123)
+#sock = sock.socket()
+#sock.bind(('127.0.0.1', 8000))
+#sock.listen(1)
+#conn, addr = sock.accept()
+
 #sock.connect (('main IP', 14880))
 
 ship1 = gameob.Ship1(randint(0,3),70,400,1)
@@ -48,8 +49,8 @@ while not finished:
     font = pg.font.Font(None, 25)
     text1 = font.render(str(ship1.score), True, gameob.WHITE)
     text2 = font.render(str(ship2.score), True, gameob.WHITE)
-    screen.blit(text2, [100, 100])
-    screen.blit(text1, [1100, 100])
+    screen.blit(text2, [60, const.screen_y - 40])
+    screen.blit(text1, [const.screen_x - 60, const.screen_y - 40])
 
     clock.tick(FPS)
     Sx = [0] * 15
@@ -57,9 +58,9 @@ while not finished:
         Sx[i] = gameob.x[i]
         Sx[i + max_num] = gameob.y[i]
         Sx[i + max_num * 2] = gameob.exist[i]
-    bts = struct.pack('i 15i i', ship1.y, *Sx, ship1.score)
-    print(len(bts))
-    conn.send(bts)
+    #bts = struct.pack('i 15i i', ship1.y, *Sx, ship1.score)
+    #print(len(bts))
+    #conn.send(bts)
     for event in pg.event.get():
         if event.type == pg.QUIT:
             finished = True
@@ -73,18 +74,18 @@ while not finished:
             mouse1_x, mouse1_y = event.pos
             gameob.new_ball(ship1.x + 5, ship1.y, mouse1_x, mouse1_y)
 
-    bts = conn.recv(1024)
-    ship2.y = struct.unpack('i', bts)[0]
+    #bts = conn.recv(1024)
+    #ship2.y = struct.unpack('i', bts)[0]
     ship1.draw()
     ship2.draw()
     gameob.Middle_cloud()
-    gameob.Panel(0, 0, 740, 300, 60)
-    gameob.Panel(0, 900, 740, 300, 60)
+    gameob.Panel(0, 0, const.screen_y - 60, 300, 60)
+    gameob.Panel(0, const.screen_x - 300, const.screen_y - 60, 300, 60)
     for i in range(0, max_num):
         if gameob.exist[i] == True:
             gameob.ball(i, ship2)
     pg.display.update()
     screen.fill(gameob.COLOR[5])
 
-
+print("Player 1 Score is: ", gameob.score)
 pg.quit()

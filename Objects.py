@@ -2,11 +2,9 @@ import pygame as pg
 from pygame.draw import *
 import numpy as np
 from random import randint
+import constants as const
 
-screen = pg.display.set_mode((1200,800))
-#FPS = pass
-
-
+screen = pg.display.set_mode((const.screen_x,const.screen_y))
 BLUE = (0,230,0)
 RED = (230,0,0)
 GREEN = (0,0,230)
