@@ -26,7 +26,7 @@ v_o = 15
 color = [0] * 10
 exist = [False] * 10
 planet_num = 5
-g = 0.1
+g = 0.01
 r = 10
 score = 0
 planet_x = []
@@ -42,7 +42,7 @@ for i in range(max_num, max_num * 2):
 for i in range (planet_num):
     planet_x = [400, 500, 450, 500, 350]
     planet_y = [350, 450, 240, 340, 210]
-    planet_r = [10] * 5
+    planet_r = [25] * 5
 
 
 def new_ball(ship_x, ship_y, mouse_x, mouse_y):
@@ -81,7 +81,7 @@ def check_hit(ball_num, ship):
     b = mult(x3, y3, x1, y1, x[ball_num], y[ball_num])
     c = mult(x2, y2, x3, y3, x[ball_num], y[ball_num])
     if a * b * c == 0 or a > 0 and b > 0 and c > 0 or a < 0 and b < 0 and c < 0:
-        ship.score+=1
+        ship.score = ship.score + 1
         destroy(ball_num)
     for i in range(0, planet_num):
 
@@ -103,14 +103,13 @@ def grav(num):
         dx = x[num] - planet_x[i]
         dy = y[num] - planet_y[i]
         l = dx ** 2 + dy ** 2
-        ax += g * planet_r[i] ** 2.4 / l * dx
-        ay += g * planet_r[i] ** 2.4 / l * dy
+        ax += g * planet_r[i] ** 2 / l ** 0.8 * dx
+        ay += g * planet_r[i] ** 2 / l ** 0.8 * dy
     ax = -int(ax)
     ay = -int(ay)
     return ax, ay
 
 def ball(i, ship2):
-    print(i)
     check_hit(i, ship2)
     ax[i], ay[i] = grav(i)
     vx[i] += ax[i]
@@ -149,9 +148,9 @@ class Ship1(Space_object):
     '''
     This class creates ship object.
     '''
-    def __init__(self,index,x,y,i):
+    def __init__(self, index, x, y, i, score):
         self.x = x
-        self.score = 0
+        self.score = score
         self.y = y
         self.i = i
         self.barrelx = self.x +((-1)**(i+1))*30
@@ -173,14 +172,14 @@ class Ship1(Space_object):
 
 class Ship2(Ship1):
 
-    def __init__(self,index,ship1):
+    def __init__(self,index,ship1, score):
         X = 1200 - ship1.x
         Y = ship1.y
         I = ship1.i
         self.x = X
         self.y = Y
-        self.score = 0
-        Ship1(index,X,Y,I+1)
+        self.score = score
+        Ship1(index, X, Y, I+1, 0)
         self.barrelx = X - 30
         self.barrely = Y
     def draw(self):

@@ -19,13 +19,15 @@ conn, addr = sock.accept()
 
 #sock.connect (('main IP', 14880))
 
-ship1 = gameob.Ship1(randint(0,3),70,400,1)
-ship2 = gameob.Ship2(randint(0,3),ship1)
+ship1 = gameob.Ship1(randint(0, 3), 70, 400, 1, 0)
+ship2 = gameob.Ship2(randint(0, 3), ship1, 0)
+ship1.score = 0
+ship2.score = 0
 init_cloud = gameob.Middle_cloud()
 init_cloud
 
-gameob.Panel(0,0,740, 300,60)
-gameob.Panel(0,900,740,300,60)
+gameob.Panel(0, 0, 740, 300, 60)
+gameob.Panel(0, 900, 740, 300, 60)
 pg.display.update()
 clock = pg.time.Clock()
 finished = False
@@ -58,7 +60,7 @@ while not finished:
         Sx[i] = gameob.x[i]
         Sx[i + max_num] = gameob.y[i]
         Sx[i + max_num * 2] = gameob.exist[i]
-    bts = struct.pack('i i 15i', ship1.y, ship1.score, *Sx)
+    bts = struct.pack('i i 15i', ship1.y, ship2.score, *Sx)
     conn.send(bts)
     for event in pg.event.get():
         if event.type == pg.QUIT:
@@ -74,8 +76,8 @@ while not finished:
             gameob.new_ball(ship1.x + 5, ship1.y, mouse1_x, mouse1_y)
 
     bts = conn.recv(1024)
-    ship2.y, ship2.score, *Sx = struct.unpack('i i 15i', bts)
-    print(ship2.score)
+    ship2.y, ship1.score, *Sx = struct.unpack('i i 15i', bts)
+    print(ship1.score)
     for i in range(max_num, max_num * 2 - 1):
         gameob.x[i] = Sx[i - max_num]
         gameob.y[i] = Sx[i]
