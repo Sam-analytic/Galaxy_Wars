@@ -7,13 +7,15 @@ import constants as const
 import socket as sock
 import struct 
 
+a = input("Please enter your IP address: ")
+sock.connect ((a, 8000))
 pg.init()
 FPS = const.fps
 gametime = const.gametime                     #maximum number of balls shot by one ship at any moment on the screen
 max_num = const.max_num
 
 sock = sock.socket()
-sock.connect (('127.0.0.1', 8000))
+
 ship1 = gameob.Ship1(randint(0, 3), 70, 400, 1, 0)
 ship1.score = 0
 ship2 = gameob.Ship2(randint(0,3),ship1, 0)
