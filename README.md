@@ -7,7 +7,7 @@ GAMEPLAY: (Alpha version)
 
 Modes:
 
-1. One on one 2. Player vs cpu
+PvP only on local network.
 
 Objects:
 
@@ -41,3 +41,9 @@ The objects can be further divided into two many classes under two main modules 
 The interaction can also be divided into the following - In game interaction and game screen, main menu interaction. 
 All the player's high scores against the CPU are saved on a file created during the game time.
 Player vs player mode is connected over the internet - with each player on a different computer. 
+
+How to play:
+1. You need 2 people 
+2. connect to same wifi
+3. open mfr1 and mfr2 files on different computers and dont forget to change your ip in code
+4. play)
