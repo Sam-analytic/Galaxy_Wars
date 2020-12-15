@@ -4,20 +4,20 @@ import Objects as gameob
 from random import randint
 from Objects import screen     #imports pygame screen from Objects module
 import constants as const
-#import socket as sock
-#import struct
+import socket as sock
+import struct
 
 pg.init()
 FPS = const.fps
 gametime = const.gametime
-max_num = 5
+max_num = const.max_num
 
-#sock = sock.socket()
-#sock.bind(('127.0.0.1', 8000))
-#sock.listen(1)
-#conn, addr = sock.accept()
+sock = sock.socket()
+sock.bind(('127.0.0.1', 8000))
+sock.listen(1)
+conn, addr = sock.accept()
 
-#sock.connect (('main IP', 14880))
+sock.connect (('main IP', 14880))
 
 ship1 = gameob.Ship1(randint(0,3),70,400,1)
 ship2 = gameob.Ship2(randint(0,3),ship1)
@@ -58,9 +58,9 @@ while not finished:
         Sx[i] = gameob.x[i]
         Sx[i + max_num] = gameob.y[i]
         Sx[i + max_num * 2] = gameob.exist[i]
-    #bts = struct.pack('i 15i i', ship1.y, *Sx, ship1.score)
-    #print(len(bts))
-    #conn.send(bts)
+    bts = struct.pack('i 15i i', ship1.y, *Sx, ship1.score)
+    print(len(bts))
+    conn.send(bts)
     for event in pg.event.get():
         if event.type == pg.QUIT:
             finished = True
@@ -74,8 +74,8 @@ while not finished:
             mouse1_x, mouse1_y = event.pos
             gameob.new_ball(ship1.x + 5, ship1.y, mouse1_x, mouse1_y)
 
-    #bts = conn.recv(1024)
-    #ship2.y = struct.unpack('i', bts)[0]
+    bts = conn.recv(1024)
+    ship2.y = struct.unpack('i', bts)[0]
     ship1.draw()
     ship2.draw()
     gameob.Middle_cloud()
