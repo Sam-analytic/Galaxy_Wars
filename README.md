@@ -13,9 +13,9 @@ PvP only on local network.
 3. Score boards at bottom - keep track of scores during the game. 
 
 # INTERACTION -
-Key W --- Ship moves up
-Key S --- Ship moves down
-Left mouse button --- ship shoots 
+1. Key W --- Ship moves up
+2. Key S --- Ship moves down
+3. Left mouse button --- ship shoots 
 
 
 # DEV PLAN:
