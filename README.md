@@ -1,5 +1,5 @@
 # Galaxy_Wars
-Semester Project developed using Pygame  - Galaxy Wars. \ 
+Semester Project developed using Pygame  - Galaxy Wars. 	
 Try to shoot your opponent and gain as much points as possible before the time is up. But wait, do your bullets travel straight anymore or do you have to account for gravity?
 
 # Modes:
