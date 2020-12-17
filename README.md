@@ -1,9 +1,6 @@
 # Galaxy_Wars
-Semester Project developed using Pygame  - Galaxy Wars.
-
-NOTE: I think that this game can be easily developed with a standard object oriented Framwork.
-
-GAMEPLAY: (Alpha version)
+Semester Project developed using Pygame  - Galaxy Wars 
+Try to shoot your opponent and gain as much points as possible before the time is up. But wait, do your bullets travel straight anymore or do you have to account for gravity?
 
 # Modes:
 
